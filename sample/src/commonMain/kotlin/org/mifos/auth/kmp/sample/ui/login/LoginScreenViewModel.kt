@@ -44,6 +44,20 @@ class LoginScreenViewModel(
                     )
                 }
             }
+            LoginScreenAction.BasicAuthButtonClicked -> {
+                mutableStateFlow.update {
+                    it.copy(showBasicAuthForm = true)
+                }
+            }
+            LoginScreenAction.BackButtonClicked -> {
+                mutableStateFlow.update {
+                    it.copy(
+                        showBasicAuthForm = false,
+                        username = "",
+                        password = ""
+                    )
+                }
+            }
         }
 
     }
@@ -109,7 +123,8 @@ class LoginScreenViewModel(
 data class LoginScreenState(
     val password: String = "",
     val username: String = "",
-    val screenState: ScreenState? = null
+    val screenState: ScreenState? = null,
+    val showBasicAuthForm: Boolean = false
 ) {
     sealed interface ScreenState {
         object Loading : ScreenState
@@ -123,6 +138,8 @@ sealed interface LoginScreenAction {
     data class PasswordChanged(val password: String) : LoginScreenAction
     data class LoginButtonClicked(val username: String, val password: String) : LoginScreenAction
     object DismissError : LoginScreenAction
+    object BasicAuthButtonClicked : LoginScreenAction
+    object BackButtonClicked : LoginScreenAction
 }
 
 sealed interface LoginScreenEvent {

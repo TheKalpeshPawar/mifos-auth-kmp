@@ -1,16 +1,23 @@
 package org.mifos.auth.kmp.sample.ui.login
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Key
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -68,47 +75,93 @@ fun LoginScreenContent(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "Login",
-                style = MaterialTheme.typography.headlineLarge,
-                modifier = Modifier.padding(bottom = 32.dp)
-            )
+        Box(modifier = Modifier.fillMaxSize()) {
+            // Back button in top left corner (only visible in basic auth form)
+            if (state.showBasicAuthForm) {
+                IconButton(
+                    onClick = { onAction(LoginScreenAction.BackButtonClicked) },
+                    modifier = Modifier
+                        .align(Alignment.TopStart)
+                        .padding(8.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back"
+                    )
+                }
+            }
 
-            OutlinedTextField(
-                value = state.username,
-                onValueChange = { onAction(LoginScreenAction.UsernameChanged(it)) },
-                label = { Text("Username") },
-                singleLine = true,
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-            )
-
-            OutlinedTextField(
-                value = state.password,
-                onValueChange = { onAction(LoginScreenAction.PasswordChanged(it)) },
-                label = { Text("Password") },
-                visualTransformation = PasswordVisualTransformation(),
-                singleLine = true,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 24.dp)
-            )
-
-            Button(
-                onClick = { onAction(LoginScreenAction.LoginButtonClicked(state.username, state.password)) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
+                    .fillMaxSize()
+                    .padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                Text("Login")
+                Text(
+                    text = "Login",
+                    style = MaterialTheme.typography.headlineLarge,
+                    modifier = Modifier.padding(bottom = 32.dp)
+                )
+
+                if (!state.showBasicAuthForm) {
+                    // Show authentication method selection
+                    OutlinedButton(
+                        onClick = { },
+                        enabled = false,
+                        modifier = Modifier
+                            .fillMaxWidth(0.6f)
+                            .height(50.dp)
+                            .padding(bottom = 16.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Key,
+                            contentDescription = null,
+                            modifier = Modifier.padding(end = 8.dp)
+                        )
+                        Text("OAuth")
+                    }
+
+                    OutlinedButton(
+                        onClick = { onAction(LoginScreenAction.BasicAuthButtonClicked) },
+                        modifier = Modifier
+                            .fillMaxWidth(0.6f)
+                            .height(50.dp)
+                    ) {
+                        Text("Basic Auth")
+                    }
+                } else {
+                    // Show basic auth login form
+                    OutlinedTextField(
+                        value = state.username,
+                        onValueChange = { onAction(LoginScreenAction.UsernameChanged(it)) },
+                        label = { Text("Username") },
+                        singleLine = true,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp)
+                    )
+
+                    OutlinedTextField(
+                        value = state.password,
+                        onValueChange = { onAction(LoginScreenAction.PasswordChanged(it)) },
+                        label = { Text("Password") },
+                        visualTransformation = PasswordVisualTransformation(),
+                        singleLine = true,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 24.dp)
+                    )
+
+                    Button(
+                        onClick = { onAction(LoginScreenAction.LoginButtonClicked(state.username, state.password)) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp)
+                    ) {
+                        Text("Login")
+                    }
+                }
             }
         }
     }

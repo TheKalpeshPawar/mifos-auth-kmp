@@ -74,6 +74,7 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.uiToolingPreview)
+            implementation(compose.materialIconsExtended)
         }
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
