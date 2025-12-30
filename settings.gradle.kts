@@ -15,10 +15,10 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "mifos-auth-kmp"
+rootProject.name = "mifos-auth"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-include(":auth-lib")
+include(":mifos-auth-kmp")
 
 include(":core:network")
 include(":core:data")

@@ -43,7 +43,7 @@ kotlin {
     // See: https://kotlinlang.org/docs/multiplatform-hierarchy.html
     sourceSets {
         commonMain.dependencies {
-            api(projects.authLib)
+            api(projects.mifosAuthKmp)
             api(projects.core.common)
 
             implementation(libs.jb.lifecycleViewmodel)
