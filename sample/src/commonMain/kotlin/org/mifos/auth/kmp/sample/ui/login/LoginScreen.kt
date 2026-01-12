@@ -42,8 +42,6 @@ fun LoginScreen(
         }
     }
 
-    // Show dialog for error/loading only when not in basic auth form
-    // BasicAuthScreen handles its own error and loading states
     if (state.screenState != null && !state.showBasicAuthForm) {
         LoginScreenDialog(
             state = state,
