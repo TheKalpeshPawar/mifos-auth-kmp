@@ -1,24 +1,23 @@
+import com.android.build.api.dsl.androidLibrary
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    id("com.android.library")
+    alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
 }
 
-android {
-    namespace = "org.mifos.auth.kmp.sample"
-    compileSdk = 36
-
-    defaultConfig {
-        minSdk = 24
-    }
-}
-
 kotlin {
 
-    androidTarget()
+    androidLibrary {
+        namespace = "org.mifos.auth.kmp.sample"
+        compileSdk = 36
+        minSdk = 24
+
+        androidResources.enable = true
+    }
     // A step-by-step guide on how to include this library in an XCode
     // project can be found here:
     // https://developer.android.com/kotlin/multiplatform/migrate
@@ -44,6 +43,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.mifosAuthKmp)
+            api(projects.mifosAuthKmpUi)
             api(projects.core.common)
 
             implementation(libs.jb.lifecycleViewmodel)
@@ -71,6 +71,7 @@ kotlin {
             // Compose dependencies
             implementation(compose.runtime)
             implementation(compose.foundation)
+            implementation(compose.components.resources)
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.uiToolingPreview)
@@ -89,6 +90,10 @@ kotlin {
         }
     }
 
+}
+
+compose.resources {
+    packageOfResClass = "org.mifos.auth.kmp.sample"
 }
 
 dependencies {

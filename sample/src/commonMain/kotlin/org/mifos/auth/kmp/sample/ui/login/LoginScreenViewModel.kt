@@ -8,6 +8,7 @@ import org.mifos.auth.kmp.library.BasicAuthentication
 import org.mifos.auth.kmp.sample.datastore.UserPreferenceDatastore
 import org.mifos.auth.kmp.sample.ui.BaseViewModel
 import org.mifos.auth.kmp.sample.util.toUser
+import org.mifos.autm.kmp.ui.AuthUiState
 
 
 class LoginScreenViewModel(
@@ -56,6 +57,11 @@ class LoginScreenViewModel(
                         username = "",
                         password = ""
                     )
+                }
+            }
+            LoginScreenAction.TogglePasswordVisibility -> {
+                mutableStateFlow.update {
+                    it.copy(isPasswordVisible = !it.isPasswordVisible)
                 }
             }
         }
@@ -119,12 +125,24 @@ class LoginScreenViewModel(
 
 }
 
+fun LoginScreenState.toBasicAuthUiState(): AuthUiState {
+    return AuthUiState(
+        username = username,
+        password = password,
+        isPasswordVisible = isPasswordVisible,
+        isLoading = screenState is LoginScreenState.ScreenState.Loading,
+        errorMessage = (screenState as? LoginScreenState.ScreenState.Error)?.message,
+        isBasicAuthLoginButtonEnabled = username.isNotBlank() && password.isNotBlank()
+    )
+}
+
 
 data class LoginScreenState(
     val password: String = "",
     val username: String = "",
     val screenState: ScreenState? = null,
-    val showBasicAuthForm: Boolean = false
+    val showBasicAuthForm: Boolean = false,
+    val isPasswordVisible: Boolean = false
 ) {
     sealed interface ScreenState {
         object Loading : ScreenState
@@ -140,6 +158,7 @@ sealed interface LoginScreenAction {
     object DismissError : LoginScreenAction
     object BasicAuthButtonClicked : LoginScreenAction
     object BackButtonClicked : LoginScreenAction
+    object TogglePasswordVisibility : LoginScreenAction
 }
 
 sealed interface LoginScreenEvent {
