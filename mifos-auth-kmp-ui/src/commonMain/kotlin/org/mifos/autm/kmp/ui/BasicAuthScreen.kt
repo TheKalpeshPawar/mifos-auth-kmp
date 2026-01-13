@@ -1,9 +1,13 @@
 package org.mifos.autm.kmp.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,7 +45,7 @@ fun BasicAuthScreen(
     onAction: (AuthAction) -> Unit,
     config: BasicAuthUiConfig = BasicAuthUiConfig(),
     style: AuthUiStyle = AuthUiStyle(),
-    headerContent: @Composable ColumnScope.() -> Unit = {
+    headerContent: @Composable BoxScope.() -> Unit = {
         Text("Welcome", style = MaterialTheme.typography.headlineMedium)
     },
     errorContent: @Composable ColumnScope.(String) -> Unit = { errorMsg ->
@@ -61,14 +65,16 @@ fun BasicAuthScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        headerContent()
+        Box(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            headerContent()
+        }
 
         if (state.errorMessage != null) {
             Spacer(modifier = Modifier.height(16.dp))
             errorContent(state.errorMessage)
         }
-
-        Spacer(modifier = Modifier.height(style.spacingAfterHeader))
 
         OutlinedTextField(
             value = state.username,
@@ -165,7 +171,27 @@ fun BasicAuthScreen(
             enabled = !state.isLoading
         )
 
-        Spacer(modifier = Modifier.height(style.spacingBeforeButton))
+        if (config.forgotPasswordLabel != null) {
+            Row(
+                horizontalArrangement = Arrangement.End,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                TextButton(
+                    onClick = { onAction(AuthAction.ForgotPasswordClicked) },
+                    enabled = !state.isLoading
+                ) {
+                    Text(
+                        config.forgotPasswordLabel,
+                        style = style.buttonTextStyle,
+                        color = style.buttonBackgroundColor
+                    )
+                }
+            }
+        }
+
+        if(config.forgotPasswordLabel == null) {
+            Spacer(modifier = Modifier.height(style.spacingBeforeButton))
+        }
 
         Button(
             onClick = { onAction(AuthAction.LoginClicked) },
@@ -193,15 +219,27 @@ fun BasicAuthScreen(
                 )
             }
         }
+        Spacer(modifier = Modifier.height(style.spacingBeforeButton))
 
-        if (config.forgotPasswordLabel != null) {
-            TextButton(
-                onClick = { onAction(AuthAction.ForgotPasswordClicked) },
-                enabled = !state.isLoading
+        if(config.showSignUpLabel) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Text(config.forgotPasswordLabel)
+                Text("Don't have an account? ", style = style.buttonTextStyle)
+                Text(
+                    "Sign Up!",
+                    style = style.buttonTextStyle,
+                    color = style.buttonBackgroundColor,
+                    modifier = Modifier.clickable(enabled = !state.isLoading){
+                        onAction(AuthAction.ForgotPasswordClicked)
+                    }
+                )
             }
         }
+
+
 
         if (footerContent != null) {
             Spacer(modifier = Modifier.weight(1f))

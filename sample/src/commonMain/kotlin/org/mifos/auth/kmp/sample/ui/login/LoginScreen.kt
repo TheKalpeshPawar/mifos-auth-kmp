@@ -1,7 +1,11 @@
 package org.mifos.auth.kmp.sample.ui.login
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.AlertDialog
@@ -15,6 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -25,6 +30,7 @@ import org.mifos.auth.kmp.sample.Res
 import org.mifos.auth.kmp.sample.mifos_logo
 import org.mifos.autm.kmp.ui.AuthAction
 import org.mifos.autm.kmp.ui.AuthScreen
+import org.mifos.autm.kmp.ui.AuthUiStyle
 
 
 @Composable
@@ -80,22 +86,55 @@ fun LoginScreenContent(
                 AuthAction.TogglePasswordVisibility -> onAction(LoginScreenAction.TogglePasswordVisibility)
             }
         },
-        headerContent = {
+        selectOptionScreenHeader = {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(bottom = 16.dp)
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.Center)
             ) {
                 Image(
                     painter = painterResource(Res.drawable.mifos_logo),
                     contentDescription = "Mifos Logo",
                     modifier = Modifier.size(200.dp, 100.dp)
                 )
+                Spacer(Modifier.height(8.dp))
                 Text(
-                    text = "Mifos Auth",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(top = 8.dp)
+                    text = "Select sign in method",
+                    style = MaterialTheme.typography.titleSmall,
                 )
+
+                Spacer(Modifier.height(24.dp))
             }
+        },
+        basicAuthScreenHeader = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterStart)
+            ) {
+                Spacer(Modifier.height(100.dp))
+                Image(
+                    painter = painterResource(Res.drawable.mifos_logo),
+                    contentDescription = "Mifos Logo",
+                    modifier = Modifier.size(200.dp, 100.dp)
+                        .align(Alignment.CenterHorizontally)
+                )
+                Spacer(Modifier.height(50.dp))
+                Text(
+                    text = "Enter your login details",
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.align(Alignment.Start)
+                )
+                Spacer(Modifier.height(16.dp))
+            }
+        },
+        footerContent = {
+            MifosPoweredCard(
+                textColor = AuthUiStyle().buttonBackgroundColor,
+                iconColor = AuthUiStyle().buttonBackgroundColor,
+            )
         }
     )
 }

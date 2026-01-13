@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.sp
 
 data class AuthUiStyle(
     val fieldShape: Shape = RoundedCornerShape(12.dp),
-    val buttonShape: Shape = RoundedCornerShape(50),
+    val buttonShape: Shape = RoundedCornerShape(20),
 
     val backgroundColor: Color = Color.White,
 
@@ -40,13 +40,12 @@ data class AuthUiStyle(
         fontWeight = FontWeight.Normal
     ),
     val buttonTextStyle: TextStyle = TextStyle(
-        fontSize = 16.sp,
+        fontSize = 12.sp,
         fontWeight = FontWeight.Medium
     ),
 
     // Dimensions
     val buttonHeight: Dp = 56.dp,
     val spacingBetweenFields: Dp = 16.dp,
-    val spacingBeforeButton: Dp = 24.dp,
-    val spacingAfterHeader: Dp = 32.dp
+    val spacingBeforeButton: Dp = 4.dp,
 )

@@ -2,6 +2,7 @@ package org.mifos.autm.kmp.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
@@ -32,7 +33,13 @@ fun AuthScreen(
     onAction: (AuthAction) -> Unit = {},
     basicAuthUiConfig: BasicAuthUiConfig = BasicAuthUiConfig(),
     style: AuthUiStyle = AuthUiStyle(),
-    headerContent: @Composable ColumnScope.() -> Unit = {
+    selectOptionScreenHeader: @Composable BoxScope.() -> Unit = {
+        Text("Welcome", style = MaterialTheme.typography.headlineMedium)
+    },
+    basicAuthScreenHeader: @Composable BoxScope.() -> Unit = {
+        Text("Welcome", style = MaterialTheme.typography.headlineMedium)
+    },
+    oauthScreenHeader: @Composable BoxScope.() -> Unit = {
         Text("Welcome", style = MaterialTheme.typography.headlineMedium)
     },
     errorContent: @Composable ColumnScope.(String) -> Unit = { errorMsg ->
@@ -56,7 +63,11 @@ fun AuthScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                headerContent()
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    selectOptionScreenHeader()
+                }
 
                 Button(
                     onClick = { },
@@ -103,7 +114,7 @@ fun AuthScreen(
                     onAction = onAction,
                     config = basicAuthUiConfig,
                     style = style,
-                    headerContent = headerContent,
+                    headerContent = basicAuthScreenHeader,
                     errorContent = errorContent,
                     footerContent = footerContent
                 )
