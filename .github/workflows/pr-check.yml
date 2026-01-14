@@ -33,4 +33,4 @@ jobs:
       - name: Static Analysis Check
         uses: openMF/mifos-x-actionhub-static-analysis-check@v1.0.1
         with:
-          java-version: ${{ inputs.java-version }}
+          java-version: ${{ inputs.java-version || '17' }}
