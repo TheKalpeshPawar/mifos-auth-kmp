@@ -1,6 +1,14 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/android-client/blob/master/LICENSE.md
+ */
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    id("com.android.library")
+    alias(libs.plugins.mifos.kmp.library)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.composeMultiplatform)
@@ -8,43 +16,25 @@ plugins {
 
 }
 
+android {
+    namespace = "cmp.shared.sample"
+}
+
+
 kotlin {
 
     // For iOS targets, this is also where you should
     // configure native binary output. For more information, see:
     // https://kotlinlang.org/docs/multiplatform-build-native-binaries.html#build-xcframeworks
 
-    // A step-by-step guide on how to include this library in an XCode
-    // project can be found here:
-    // https://developer.android.com/kotlin/multiplatform/migrate
     val xcfName = "cmp-shared-sampleKit"
 
-    androidTarget()
-    iosX64 {
-        binaries.framework {
-            baseName = xcfName
-        }
-    }
-
-    iosArm64 {
-        binaries.framework {
-            baseName = xcfName
-        }
-    }
-
-
-    // Source set declarations.
-    // Declaring a target automatically creates a source set with the same name. By default, the
-    // Kotlin Gradle Plugin creates additional source sets that depend on each other, since it is
-    // common to share sources between related targets.
-    // See: https://kotlinlang.org/docs/multiplatform-hierarchy.html
     sourceSets {
         commonMain {
             dependencies {
                 implementation(libs.kotlin.stdlib)
 
                 api(projects.sample)
-                implementation(compose.material)
                 implementation(compose.material3)
                 api(libs.koin.core)
                 implementation(libs.koin.compose)
@@ -52,7 +42,7 @@ kotlin {
             }
         }
 
-        jvmMain.dependencies {
+        desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(compose.desktop.common)
         }

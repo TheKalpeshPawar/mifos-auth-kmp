@@ -1,16 +1,30 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
-        google()
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         mavenCentral()
         gradlePluginPortal()
-        maven("https://maven.pkg.jetbrains.space/public/p/koin/dev")
     }
 }
 
 dependencyResolutionManagement {
+    repositoriesMode = RepositoriesMode.PREFER_PROJECT
     repositories {
-        google()
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         mavenCentral()
+        gradlePluginPortal()
         maven("https://maven.pkg.jetbrains.space/public/p/koin/dev")
     }
 }

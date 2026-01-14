@@ -1,3 +1,12 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/android-client/blob/master/LICENSE.md
+ */
 package org.mifos.auth.kmp.library
 
 import io.ktor.http.HeadersBuilder
@@ -10,21 +19,21 @@ import org.mifos.auth.kmp.core.network.Authenticator
 import org.mifos.auth.kmp.core.network.model.authentication.PostAuthenticationResponse
 
 class BasicAuthentication(
-    private val authenticator: Authenticator
+    private val authenticator: Authenticator,
 ) {
     operator fun invoke(
         username: String,
         password: String,
         queryParameters: ParametersBuilder.() -> Unit = {},
-        additionalHeaders: HeadersBuilder.() -> Unit = {}
-    ) : Flow<DataState<PostAuthenticationResponse>> = flow {
+        additionalHeaders: HeadersBuilder.() -> Unit = {},
+    ): Flow<DataState<PostAuthenticationResponse>> = flow {
         emit(
             authenticator.authenticate(
                 username,
                 password,
                 queryParameters,
-                additionalHeaders
-            )
+                additionalHeaders,
+            ),
         )
     }.asDataStateFlow()
 }

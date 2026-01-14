@@ -1,47 +1,27 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/android-client/blob/master/LICENSE.md
+ */
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.android.kotlin.multiplatform.library)
-    alias(libs.plugins.android.lint)
+    alias(libs.plugins.mifos.kmp.library)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
 }
 
+
+android {
+    namespace = "org.mifos.auth.kmp.ui"
+
+}
+
 kotlin {
-
-    // Target declarations - add or remove as needed below. These define
-    // which platforms this KMP module supports.
-    // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
-    androidLibrary {
-        namespace = "org.mifos.auth.kmp.ui"
-        compileSdk = 36
-        minSdk = 24
-
-        withHostTestBuilder {
-        }
-
-        withDeviceTestBuilder {
-            sourceSetTreeName = "test"
-        }.configure {
-            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        }
-    }
-
-    val xcfName = "mifos-auth-kmp-uiKit"
-
-    iosX64 {
-        binaries.framework {
-            baseName = xcfName
-        }
-    }
-
-    iosArm64 {
-        binaries.framework {
-            baseName = xcfName
-        }
-    }
-
 
     sourceSets {
         commonMain.dependencies {
