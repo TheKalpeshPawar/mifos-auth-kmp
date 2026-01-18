@@ -24,6 +24,18 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    lint {
+        xmlReport = true
+        checkDependencies = true
+        abortOnError = false
+        // Disable this rule until we ship the libraries to some maven.
+        disable += "ResourceName"
+        disable += "MissingTranslation"
+        disable += "ExtraTranslation"
+        baseline = File("lint-baseline.xml")
+        explainIssues = true
+        htmlReport = true
+    }
 }
 
 dependencies {
