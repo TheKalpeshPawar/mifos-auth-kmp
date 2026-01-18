@@ -1,3 +1,11 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ */
 package org.mifos.auth.kmp.core.network
 
 import io.ktor.client.HttpClient
@@ -10,7 +18,6 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-
 
 actual val KtorHttpClient: HttpClient
     get() = HttpClient(OkHttp) {

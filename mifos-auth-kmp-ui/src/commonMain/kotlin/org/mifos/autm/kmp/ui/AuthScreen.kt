@@ -1,3 +1,11 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ */
 package org.mifos.autm.kmp.ui
 
 import androidx.compose.foundation.layout.Arrangement
@@ -26,7 +34,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
-
 @Composable
 fun AuthScreen(
     state: AuthUiState = AuthUiState(),
@@ -46,14 +53,14 @@ fun AuthScreen(
         Text(
             text = errorMsg,
             color = MaterialTheme.colorScheme.error,
-            style = MaterialTheme.typography.bodySmall
+            style = MaterialTheme.typography.bodySmall,
         )
     },
-    footerContent: (@Composable ColumnScope.() -> Unit)? = null
+    footerContent: (@Composable ColumnScope.() -> Unit)? = null,
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = AuthUiStyle().backgroundColor
+        color = AuthUiStyle().backgroundColor,
     ) {
         if (!state.showBasicAuthForm) {
             Column(
@@ -61,10 +68,10 @@ fun AuthScreen(
                     .fillMaxSize()
                     .padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
             ) {
                 Box(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 ) {
                     selectOptionScreenHeader()
                 }
@@ -75,16 +82,16 @@ fun AuthScreen(
                     shape = style.buttonShape,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = style.buttonBackgroundColor,
-                        disabledContainerColor = style.buttonDisabledBackgroundColor
+                        disabledContainerColor = style.buttonDisabledBackgroundColor,
                     ),
                     modifier = Modifier
                         .fillMaxWidth(0.6f)
-                        .height(50.dp)
+                        .height(50.dp),
                 ) {
                     Icon(
                         imageVector = Icons.Default.Key,
                         contentDescription = null,
-                        modifier = Modifier.padding(end = 8.dp)
+                        modifier = Modifier.padding(end = 8.dp),
                     )
                     Text("OAuth")
                 }
@@ -96,19 +103,17 @@ fun AuthScreen(
                     shape = style.buttonShape,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = style.buttonBackgroundColor,
-                        disabledContainerColor = style.buttonDisabledBackgroundColor
+                        disabledContainerColor = style.buttonDisabledBackgroundColor,
                     ),
                     modifier = Modifier
                         .fillMaxWidth(0.6f)
-                        .height(50.dp)
+                        .height(50.dp),
                 ) {
                     Text("Basic Auth")
                 }
-
             }
         } else {
             Box(modifier = Modifier.fillMaxSize()) {
-
                 BasicAuthScreen(
                     state = state,
                     onAction = onAction,
@@ -116,19 +121,19 @@ fun AuthScreen(
                     style = style,
                     headerContent = basicAuthScreenHeader,
                     errorContent = errorContent,
-                    footerContent = footerContent
+                    footerContent = footerContent,
                 )
 
                 IconButton(
                     onClick = { onAction(AuthAction.BackButtonClicked) },
                     modifier = Modifier
                         .align(Alignment.TopStart)
-                        .padding(horizontal = 18.dp, vertical = 32.dp)
+                        .padding(horizontal = 18.dp, vertical = 32.dp),
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back",
-                        tint = Color.Black
+                        tint = Color.Black,
                     )
                 }
             }

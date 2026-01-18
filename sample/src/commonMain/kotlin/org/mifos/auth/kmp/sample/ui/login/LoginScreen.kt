@@ -1,3 +1,11 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ */
 package org.mifos.auth.kmp.sample.ui.login
 
 import androidx.compose.foundation.Image
@@ -19,7 +27,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -31,7 +38,6 @@ import org.mifos.auth.kmp.sample.mifos_logo
 import org.mifos.autm.kmp.ui.AuthAction
 import org.mifos.autm.kmp.ui.AuthScreen
 import org.mifos.autm.kmp.ui.AuthUiStyle
-
 
 @Composable
 fun LoginScreen(
@@ -53,21 +59,20 @@ fun LoginScreen(
             state = state,
             onDismiss = {
                 loginViewModel.trySendAction(LoginScreenAction.DismissError)
-            }
+            },
         )
     }
 
     LoginScreenContent(
         state = state,
-        onAction = loginViewModel::trySendAction
+        onAction = loginViewModel::trySendAction,
     )
-
 }
 
 @Composable
 fun LoginScreenContent(
     state: LoginScreenState = LoginScreenState(),
-    onAction: (LoginScreenAction) -> Unit = {}
+    onAction: (LoginScreenAction) -> Unit = {},
 ) {
     AuthScreen(
         state = state.toBasicAuthUiState().copy(showBasicAuthForm = state.showBasicAuthForm),
@@ -80,8 +85,8 @@ fun LoginScreenContent(
                 is AuthAction.LoginClicked -> onAction(
                     LoginScreenAction.LoginButtonClicked(
                         username = state.username,
-                        password = state.password
-                    )
+                        password = state.password,
+                    ),
                 )
                 AuthAction.TogglePasswordVisibility -> onAction(LoginScreenAction.TogglePasswordVisibility)
             }
@@ -92,12 +97,12 @@ fun LoginScreenContent(
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.Center)
+                    .align(Alignment.Center),
             ) {
                 Image(
                     painter = painterResource(Res.drawable.mifos_logo),
                     contentDescription = "Mifos Logo",
-                    modifier = Modifier.size(200.dp, 100.dp)
+                    modifier = Modifier.size(200.dp, 100.dp),
                 )
                 Spacer(Modifier.height(8.dp))
                 Text(
@@ -112,20 +117,20 @@ fun LoginScreenContent(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.CenterStart)
+                    .align(Alignment.CenterStart),
             ) {
                 Spacer(Modifier.height(100.dp))
                 Image(
                     painter = painterResource(Res.drawable.mifos_logo),
                     contentDescription = "Mifos Logo",
                     modifier = Modifier.size(200.dp, 100.dp)
-                        .align(Alignment.CenterHorizontally)
+                        .align(Alignment.CenterHorizontally),
                 )
                 Spacer(Modifier.height(50.dp))
                 Text(
                     text = "Enter your login details",
                     style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier.align(Alignment.Start)
+                    modifier = Modifier.align(Alignment.Start),
                 )
                 Spacer(Modifier.height(16.dp))
             }
@@ -135,7 +140,7 @@ fun LoginScreenContent(
                 textColor = AuthUiStyle().buttonBackgroundColor,
                 iconColor = AuthUiStyle().buttonBackgroundColor,
             )
-        }
+        },
     )
 }
 
@@ -151,7 +156,7 @@ fun LoginScreenDialog(state: LoginScreenState, onDismiss: () -> Unit) {
                     TextButton(onClick = onDismiss) {
                         Text("OK")
                     }
-                }
+                },
             )
         }
         LoginScreenState.ScreenState.Loading -> {
@@ -159,12 +164,12 @@ fun LoginScreenDialog(state: LoginScreenState, onDismiss: () -> Unit) {
                 Card {
                     Column(
                         modifier = Modifier.padding(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         CircularProgressIndicator()
                         Text(
                             text = "Loading...",
-                            modifier = Modifier.padding(top = 8.dp)
+                            modifier = Modifier.padding(top = 8.dp),
                         )
                     }
                 }
@@ -174,7 +179,6 @@ fun LoginScreenDialog(state: LoginScreenState, onDismiss: () -> Unit) {
         null -> {}
     }
 }
-
 
 @Preview
 @Composable

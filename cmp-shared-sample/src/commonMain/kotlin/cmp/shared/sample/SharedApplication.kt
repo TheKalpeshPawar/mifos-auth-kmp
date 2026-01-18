@@ -1,12 +1,17 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ */
 package cmp.shared.sample
 
 import androidx.compose.runtime.Composable
 import org.mifos.auth.kmp.sample.ui.navigation.MifosAuthKmpSampleNavigation
 
-
 @Composable
-fun SharedApplication(){
-
+fun SharedApplication() {
     MifosAuthKmpSampleNavigation()
-
 }

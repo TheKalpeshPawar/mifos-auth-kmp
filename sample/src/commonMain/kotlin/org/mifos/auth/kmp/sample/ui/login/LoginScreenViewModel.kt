@@ -1,3 +1,11 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ */
 package org.mifos.auth.kmp.sample.ui.login
 
 import androidx.lifecycle.viewModelScope
@@ -10,20 +18,19 @@ import org.mifos.auth.kmp.sample.ui.BaseViewModel
 import org.mifos.auth.kmp.sample.util.toUser
 import org.mifos.autm.kmp.ui.AuthUiState
 
-
 class LoginScreenViewModel(
     private val basicAuthentication: BasicAuthentication,
     private val userPreferenceDatastore: UserPreferenceDatastore,
 ) : BaseViewModel<LoginScreenState, LoginScreenEvent, LoginScreenAction> (
-    LoginScreenState()
+    LoginScreenState(),
 ) {
 
     override fun handleAction(action: LoginScreenAction) {
-        when(action) {
+        when (action) {
             is LoginScreenAction.LoginButtonClicked -> {
                 handleLoginButtonClicked(
                     action.username,
-                    action.password
+                    action.password,
                 )
             }
             is LoginScreenAction.PasswordChanged -> {
@@ -41,7 +48,7 @@ class LoginScreenViewModel(
                     it.copy(
                         screenState = null,
                         password = "",
-                        username = ""
+                        username = "",
                     )
                 }
             }
@@ -55,7 +62,7 @@ class LoginScreenViewModel(
                     it.copy(
                         showBasicAuthForm = false,
                         username = "",
-                        password = ""
+                        password = "",
                     )
                 }
             }
@@ -65,9 +72,7 @@ class LoginScreenViewModel(
                 }
             }
         }
-
     }
-
 
     private fun handleLoginButtonClicked(username: String, password: String) {
         viewModelScope.launch {
@@ -76,14 +81,14 @@ class LoginScreenViewModel(
                 password,
                 queryParameters = {
                     append("returnClientList", "true")
-                }
+                },
             ).collect { dataState ->
 
                 when (dataState) {
                     is DataState.Error -> {
                         mutableStateFlow.update {
                             it.copy(
-                                screenState = LoginScreenState.ScreenState.Error(dataState.message)
+                                screenState = LoginScreenState.ScreenState.Error(dataState.message),
                             )
                         }
                     }
@@ -91,7 +96,7 @@ class LoginScreenViewModel(
                     DataState.Loading -> {
                         mutableStateFlow.update {
                             it.copy(
-                                screenState = LoginScreenState.ScreenState.Loading
+                                screenState = LoginScreenState.ScreenState.Loading,
                             )
                         }
                     }
@@ -99,30 +104,26 @@ class LoginScreenViewModel(
                     is DataState.Success -> {
                         mutableStateFlow.update {
                             it.copy(
-                                screenState = null
+                                screenState = null,
                             )
                         }
                         try {
                             userPreferenceDatastore.saveUser(
-                                dataState.data.toUser(true)
+                                dataState.data.toUser(true),
                             )
                             sendEvent(LoginScreenEvent.LoginSuccess)
                         } catch (e: Exception) {
                             mutableStateFlow.update {
                                 it.copy(
-                                    screenState = LoginScreenState.ScreenState.Error(e.message ?: "Unknown Error")
+                                    screenState = LoginScreenState.ScreenState.Error(e.message ?: "Unknown Error"),
                                 )
                             }
                         }
                     }
                 }
-
             }
         }
-
     }
-
-
 }
 
 fun LoginScreenState.toBasicAuthUiState(): AuthUiState {
@@ -132,24 +133,22 @@ fun LoginScreenState.toBasicAuthUiState(): AuthUiState {
         isPasswordVisible = isPasswordVisible,
         isLoading = screenState is LoginScreenState.ScreenState.Loading,
         errorMessage = (screenState as? LoginScreenState.ScreenState.Error)?.message,
-        isBasicAuthLoginButtonEnabled = username.isNotBlank() && password.isNotBlank()
+        isBasicAuthLoginButtonEnabled = username.isNotBlank() && password.isNotBlank(),
     )
 }
-
 
 data class LoginScreenState(
     val password: String = "",
     val username: String = "",
     val screenState: ScreenState? = null,
     val showBasicAuthForm: Boolean = false,
-    val isPasswordVisible: Boolean = false
+    val isPasswordVisible: Boolean = false,
 ) {
     sealed interface ScreenState {
         object Loading : ScreenState
-        data class Error(val message: String): ScreenState
+        data class Error(val message: String) : ScreenState
     }
 }
-
 
 sealed interface LoginScreenAction {
     data class UsernameChanged(val username: String) : LoginScreenAction

@@ -1,3 +1,11 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ */
 package org.mifos.auth.kmp.sample.ui.home
 
 import androidx.navigation.NavController
@@ -6,11 +14,10 @@ import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
 import org.mifos.auth.kmp.sample.ui.login.navigateToLogin
 
-
 @Serializable
 data object HomeScreenRoute
 
-fun NavGraphBuilder.createHomeScreenDestination(navController: NavController){
+fun NavGraphBuilder.createHomeScreenDestination(navController: NavController) {
     composable<HomeScreenRoute> {
         HomeScreen {
             navController.navigateToLogin()

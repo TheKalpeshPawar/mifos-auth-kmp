@@ -1,3 +1,11 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ */
 package org.mifos.autm.kmp.ui
 
 import androidx.compose.foundation.background
@@ -38,7 +46,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 
-
 @Composable
 fun BasicAuthScreen(
     state: AuthUiState,
@@ -52,10 +59,10 @@ fun BasicAuthScreen(
         Text(
             text = errorMsg,
             color = MaterialTheme.colorScheme.error,
-            style = MaterialTheme.typography.bodySmall
+            style = MaterialTheme.typography.bodySmall,
         )
     },
-    footerContent: (@Composable ColumnScope.() -> Unit)? = null
+    footerContent: (@Composable ColumnScope.() -> Unit)? = null,
 ) {
     Column(
         modifier = style.containerModifier
@@ -63,10 +70,10 @@ fun BasicAuthScreen(
             .background(style.backgroundColor)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Box(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ) {
             headerContent()
         }
@@ -83,14 +90,14 @@ fun BasicAuthScreen(
                 Text(
                     text = config.usernameLabel,
                     style = style.textFieldTextStyle,
-                    color = style.textFieldPlaceholderColor
+                    color = style.textFieldPlaceholderColor,
                 )
             },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Person,
                     contentDescription = "Username icon",
-                    tint = style.textFieldIconColor
+                    tint = style.textFieldIconColor,
                 )
             },
             singleLine = true,
@@ -107,11 +114,11 @@ fun BasicAuthScreen(
                 focusedLeadingIconColor = style.textFieldIconColor,
                 unfocusedLeadingIconColor = style.textFieldIconColor,
                 focusedPlaceholderColor = style.textFieldPlaceholderColor,
-                unfocusedPlaceholderColor = style.textFieldPlaceholderColor
+                unfocusedPlaceholderColor = style.textFieldPlaceholderColor,
             ),
             textStyle = style.textFieldTextStyle,
             modifier = style.fieldModifier.fillMaxWidth(),
-            enabled = !state.isLoading
+            enabled = !state.isLoading,
         )
 
         Spacer(modifier = Modifier.height(style.spacingBetweenFields))
@@ -123,14 +130,14 @@ fun BasicAuthScreen(
                 Text(
                     text = config.passwordLabel,
                     style = style.textFieldTextStyle,
-                    color = style.textFieldPlaceholderColor
+                    color = style.textFieldPlaceholderColor,
                 )
             },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Lock,
                     contentDescription = "Password icon",
-                    tint = style.textFieldIconColor
+                    tint = style.textFieldIconColor,
                 )
             },
             singleLine = true,
@@ -142,13 +149,17 @@ fun BasicAuthScreen(
                         Icon(
                             if (state.isPasswordVisible) {
                                 Icons.Default.Visibility
-                            } else Icons.Default.VisibilityOff,
+                            } else {
+                                Icons.Default.VisibilityOff
+                            },
                             contentDescription = if (state.isPasswordVisible) "Hide" else "Show",
-                            tint = style.textFieldIconColor
+                            tint = style.textFieldIconColor,
                         )
                     }
                 }
-            } else null,
+            } else {
+                null
+            },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = style.textFieldFocusedBackgroundColor,
                 unfocusedContainerColor = style.textFieldBackgroundColor,
@@ -163,33 +174,33 @@ fun BasicAuthScreen(
                 focusedTrailingIconColor = style.textFieldIconColor,
                 unfocusedTrailingIconColor = style.textFieldIconColor,
                 focusedPlaceholderColor = style.textFieldPlaceholderColor,
-                unfocusedPlaceholderColor = style.textFieldPlaceholderColor
+                unfocusedPlaceholderColor = style.textFieldPlaceholderColor,
             ),
             textStyle = style.textFieldTextStyle,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = style.fieldModifier.fillMaxWidth(),
-            enabled = !state.isLoading
+            enabled = !state.isLoading,
         )
 
         if (config.forgotPasswordLabel != null) {
             Row(
                 horizontalArrangement = Arrangement.End,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 TextButton(
                     onClick = { onAction(AuthAction.ForgotPasswordClicked) },
-                    enabled = !state.isLoading
+                    enabled = !state.isLoading,
                 ) {
                     Text(
                         config.forgotPasswordLabel,
                         style = style.buttonTextStyle,
-                        color = style.buttonBackgroundColor
+                        color = style.buttonBackgroundColor,
                     )
                 }
             }
         }
 
-        if(config.forgotPasswordLabel == null) {
+        if (config.forgotPasswordLabel == null) {
             Spacer(modifier = Modifier.height(style.spacingBeforeButton))
         }
 
@@ -199,47 +210,45 @@ fun BasicAuthScreen(
             shape = style.buttonShape,
             colors = ButtonDefaults.buttonColors(
                 containerColor = style.buttonBackgroundColor,
-                disabledContainerColor = style.buttonDisabledBackgroundColor
+                disabledContainerColor = style.buttonDisabledBackgroundColor,
             ),
             modifier = style.fieldModifier
                 .fillMaxWidth()
-                .height(style.buttonHeight)
+                .height(style.buttonHeight),
         ) {
             if (state.isLoading) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(24.dp),
                     color = style.buttonLoadingIndicatorColor,
-                    strokeWidth = 2.dp
+                    strokeWidth = 2.dp,
                 )
             } else {
                 Text(
                     text = config.loginButtonLabel,
                     style = style.buttonTextStyle,
-                    color = style.buttonTextColor
+                    color = style.buttonTextColor,
                 )
             }
         }
         Spacer(modifier = Modifier.height(style.spacingBeforeButton))
 
-        if(config.showSignUpLabel) {
+        if (config.showSignUpLabel) {
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Text("Don't have an account? ", style = style.buttonTextStyle)
                 Text(
                     "Sign Up!",
                     style = style.buttonTextStyle,
                     color = style.buttonBackgroundColor,
-                    modifier = Modifier.clickable(enabled = !state.isLoading){
+                    modifier = Modifier.clickable(enabled = !state.isLoading) {
                         onAction(AuthAction.ForgotPasswordClicked)
-                    }
+                    },
                 )
             }
         }
-
-
 
         if (footerContent != null) {
             Spacer(modifier = Modifier.weight(1f))

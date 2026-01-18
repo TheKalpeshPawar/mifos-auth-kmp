@@ -1,3 +1,11 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ */
 package org.mifos.auth.kmp.core.network
 
 import io.ktor.client.call.body
@@ -13,7 +21,6 @@ import org.mifos.auth.kmp.core.common.utils.ServerConfig
 import org.mifos.auth.kmp.core.network.model.authentication.PostAuthenticationRequest
 import org.mifos.auth.kmp.core.network.model.authentication.PostAuthenticationResponse
 
-
 class Authenticator(
     private val serverConfig: ServerConfig = ServerConfig.DEFAULT,
 ) {
@@ -22,8 +29,8 @@ class Authenticator(
     suspend fun authenticate(
         username: String,
         password: String,
-        queryParameters: ParametersBuilder.()-> Unit ={},
-        additionalHeaders: HeadersBuilder.() -> Unit = {}
+        queryParameters: ParametersBuilder.() -> Unit = {},
+        additionalHeaders: HeadersBuilder.() -> Unit = {},
     ): PostAuthenticationResponse {
         try {
             val result = httpClient.post {
@@ -42,9 +49,8 @@ class Authenticator(
                     PostAuthenticationRequest(
                         password.trim(),
                         username.trim(),
-                    )
+                    ),
                 )
-
             }
 
             if (!result.status.isSuccess()) {

@@ -1,3 +1,11 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ */
 package org.mifos.autm.kmp.ui
 
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,7 +27,6 @@ data class AuthUiStyle(
     val containerModifier: Modifier = Modifier.Companion,
     val fieldModifier: Modifier = Modifier.Companion,
 
-
     val textFieldBackgroundColor: Color = Color.White,
     val textFieldFocusedBackgroundColor: Color = Color.White,
     val textFieldBorderColor: Color = Color(0xFFDBE2F9),
@@ -28,20 +35,18 @@ data class AuthUiStyle(
     val textFieldPlaceholderColor: Color = Color(0xFF44474F),
     val textFieldIconColor: Color = Color(0xFF44474F),
 
-
     val buttonBackgroundColor: Color = Color(0xFF445E91),
     val buttonDisabledBackgroundColor: Color = Color(0xFF445E91).copy(alpha = 0.6f),
     val buttonTextColor: Color = Color.White,
     val buttonLoadingIndicatorColor: Color = Color.White,
 
-
     val textFieldTextStyle: TextStyle = TextStyle(
         fontSize = 16.sp,
-        fontWeight = FontWeight.Normal
+        fontWeight = FontWeight.Normal,
     ),
     val buttonTextStyle: TextStyle = TextStyle(
         fontSize = 12.sp,
-        fontWeight = FontWeight.Medium
+        fontWeight = FontWeight.Medium,
     ),
 
     // Dimensions
