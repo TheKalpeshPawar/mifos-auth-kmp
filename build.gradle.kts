@@ -5,8 +5,11 @@ plugins {
     alias(libs.plugins.android.lint) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.composeCompiler) apply false
+    alias(libs.plugins.composeMultiplatform ) apply false
     alias(libs.plugins.androidApplication) apply false
 
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.ksp) apply false
     alias(libs.plugins.dependencyGuard) apply false
     alias(libs.plugins.detekt) apply false
     alias(libs.plugins.spotless) apply false

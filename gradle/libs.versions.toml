@@ -1,6 +1,9 @@
 [versions]
 agp = "8.12.3"
+desktop = "1.10.0"
 kotlin = "2.2.20"
+componentsResources = "1.10.0"
+foundation = "1.10.0"
 android-minSdk = "24"
 android-compileSdk = "36"
 vanniktechMavenPublish = "0.35.0"
@@ -31,6 +34,11 @@ coreKtx = "1.17.0"
 junitVersion = "4.13.2"
 espressoCore = "3.7.0"
 
+material3Icons = "1.7.3"
+
+material3 = "1.9.0"
+uiToolingPreview = "1.10.0"
+
 dependencyGuard = "0.5.0"
 spotlessVersion = "8.1.0"
 detekt = "1.23.8"
@@ -40,11 +48,16 @@ ktlint = "14.0.1"
 androidTools = "32.0.0"
 androidDesugarJdkLibs = "2.1.5"
 
+kermit-logger = "2.0.8"
+
+composeJB = "1.10.0"
+jbCoreBundle = "1.0.1"
+jbSavedState = "1.4.0"
+
 [libraries]
 
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
-jetbrains-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "androidxComposeUi" }
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
@@ -54,12 +67,27 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
 
 compose-gradlePlugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
+desktop = { module = "org.jetbrains.compose.desktop:desktop", version.ref = "desktop" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
+material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
+
+jb-kotlin-stdlib-js = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-js", version.ref = "kotlin" }
+jb-kotlin-dom = { group = "org.jetbrains.kotlin", name = "kotlin-dom-api-compat", version.ref = "kotlin" }
+jb-composeRuntime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeJB" }
+jb-lifecycle-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "composeLifecycle" }
+jb-composeViewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "composeLifecycle" }
 jb-lifecycleViewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "composeLifecycle" }
 jb-lifecycleViewmodelSavedState = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "composeLifecycle" }
+jb-bundle = { module = "org.jetbrains.androidx.core:core-bundle", version.ref = "jbCoreBundle" }
+jb-savedstate = { module = "org.jetbrains.androidx.savedstate:savedstate", version.ref = "jbSavedState" }
 jb-composeNavigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
-compose-ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatform" }
+jb-navigation = { module = "org.jetbrains.androidx.navigation:navigation-common", version.ref = "composeNavigation" }
+jb-compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "uiToolingPreview" }
+jb-ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
+
+components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "componentsResources" }
+foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "foundation" }
 
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlinx-serialization-json = {module ="org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization"}
@@ -98,9 +126,9 @@ detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-form
 twitter-detekt-compose = { group = "com.twitter.compose.rules", name = "detekt", version.ref = "twitter-detekt-compose" }
 
 #Coroutines
-kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 core = { group = "androidx.test", name = "core", version.ref = "core" }
@@ -117,7 +145,10 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 junit-junit = { group = "junit", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 
+material3-icons = { module = "org.jetbrains.compose.material:material-icons-extended" , version.ref = "material3Icons" }
 
+#kermit logger
+kermit-logger ={module="co.touchlab:kermit",version.ref = "kermit-logger"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -138,9 +169,7 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 mifos-android-application = { id = "mifos.android.application", version = "unspecified" }
 mifos-android-application-compose = { id = "mifos.android.application.compose", version = "unspecified" }
 mifos-kmp-library = { id = "mifos.kmp.library", version = "unspecified" }
-#mifos-detekt-plugin = {id = "mifos.detekt.plugin", version = "unspecified" }
-#mifos-spotless-plugin = {id = "mifos.spotless.plugin", version = "unspecified" }
-#mifos-klint-plugin = {id = "mifos.ktlint.plugin", version = "unspecified" }
+mifos-cmp-feature = { id = "mifos.cmp.feature", version = "unspecified" }
 
 
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

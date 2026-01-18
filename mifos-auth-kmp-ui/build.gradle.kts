@@ -7,11 +7,7 @@
  *
  */
 plugins {
-    alias(libs.plugins.mifos.kmp.library)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.mifos.cmp.feature)
 }
 
 
@@ -28,15 +24,6 @@ kotlin {
             api(projects.core.common)
 
             implementation(libs.kotlinx.serialization.json)
-
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.uiToolingPreview)
-            implementation(compose.materialIconsExtended)
         }
     }
-
-
 }

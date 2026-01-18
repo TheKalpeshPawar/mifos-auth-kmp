@@ -8,11 +8,7 @@
  */
 
 plugins {
-    alias(libs.plugins.mifos.kmp.library)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.mifos.cmp.feature)
 }
 
 
@@ -28,9 +24,7 @@ kotlin {
             api(projects.mifosAuthKmpUi)
             api(projects.core.common)
 
-            implementation(libs.jb.lifecycleViewmodel)
-            implementation(libs.jb.lifecycleViewmodelSavedState)
-            implementation(libs.jb.composeNavigation)
+
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
@@ -50,17 +44,8 @@ kotlin {
             implementation(libs.multiplatform.settings.serialization)
             implementation(libs.multiplatform.settings.coroutines)
 
-            // Compose dependencies
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.components.resources)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.uiToolingPreview)
-
         }
         androidMain.dependencies {
-            implementation(libs.compose.ui.tooling.preview)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.koin.android)
         }

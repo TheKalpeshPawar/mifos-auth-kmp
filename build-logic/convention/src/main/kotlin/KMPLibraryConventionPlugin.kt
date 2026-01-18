@@ -3,7 +3,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.mifos.configureFlavors
 import org.mifos.configureKotlinAndroid
 import org.mifos.configureKotlinMultiplatform
 import org.mifos.libs
@@ -16,6 +15,8 @@ class KMPLibraryConventionPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.multiplatform")
+                apply("com.google.devtools.ksp")
+                apply("org.jetbrains.kotlin.plugin.serialization")
                 apply("mifos.detekt.plugin")
                 apply("mifos.spotless.plugin")
 

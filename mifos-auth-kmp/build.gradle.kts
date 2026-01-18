@@ -12,11 +12,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.mifos.kmp.library)
     alias(libs.plugins.vanniktech.mavenPublish)
-
-    kotlin("plugin.serialization") version "2.3.0"
-
+    alias(libs.plugins.kotlin.serialization)
 }
-
 
 group = "io.github.kotlin"
 version = "1.0.0"
